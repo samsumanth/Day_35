@@ -1,0 +1,29 @@
+import java.sql.*;
+
+public class Restrict_Duplicates 
+{
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException 
+	{
+		restrictDuplicateEntries();
+	}
+
+	public static int restrictDuplicateEntries() throws ClassNotFoundException, SQLException
+	{
+	 	String url = "jdbc:mysql://localhost:3306/address_book";
+    	String uname = "root";
+    	String pass = "";
+    	String query = "alter table addrbook add primary key(phn_no)";
+    	
+    	Class.forName("com.mysql.cj.jdbc.Driver");
+    	Connection con = DriverManager.getConnection(url,uname,pass);
+    	PreparedStatement ps = con.prepareStatement(query);
+
+    	int result = ps.executeUpdate();
+    	System.out.println("Number of affected rows:" + result);
+    	ps.close();
+    	con.close();
+    	
+    	return result;
+	}
+}

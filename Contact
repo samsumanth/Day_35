@@ -1,0 +1,26 @@
+import java.sql.*;
+public class Create_Contact 
+{
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException 
+	{
+		createContact();
+	}
+	
+	public static void createContact() throws ClassNotFoundException, SQLException
+	{
+	 	String url = "jdbc:mysql://localhost:3306/address_book";
+    	String uname = "root";
+    	String pass = "";
+    	String query = "create table addrbook(fname varchar(50) not null,lname varchar(50) not null,address varchar(100) not null, state varchar(100) not null, zip int not null,phn_no double not null, email varchar(35) not null);";
+    	
+    	Class.forName("com.mysql.cj.jdbc.Driver");
+    	Connection con = DriverManager.getConnection(url,uname,pass);
+    	PreparedStatement ps = con.prepareStatement(query);
+
+    	int result = ps.executeUpdate();
+    	System.out.println("Number of affected rows:" + result);
+    	ps.close();
+    	con.close();
+	}
+}

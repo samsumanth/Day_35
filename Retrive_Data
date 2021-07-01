@@ -1,0 +1,42 @@
+import java.sql.*;
+
+public class RetriveData 
+{
+    public static void main( String[] args ) throws ClassNotFoundException, SQLException
+    {
+    	retriveDataBetweenRange();
+     }
+    
+    public static void retriveDataBetweenRange() throws ClassNotFoundException, SQLException
+    {
+    	String url = "jdbc:mysql://localhost:3306/payroll_service";
+    	String uname = "root";
+    	String pass = "";
+    	String query = "select *from employee_payroll where emp_start_date between '2012-04-22' and '2016-10-15'";
+    	
+    	Class.forName("com.mysql.cj.jdbc.Driver");
+    	Connection con = DriverManager.getConnection(url,uname,pass);
+    	Statement st = con.createStatement();
+    	ResultSet rs = st.executeQuery(query);
+    	
+    	while(rs.next())
+    	{
+        	int emp_id = rs.getInt(1);
+        	String emp_name = rs.getString(2);
+        	String emp_gender = rs.getString(3);
+        	double emp_salary = rs.getDouble(4);
+        	String emp_date = rs.getString(5);
+        	
+        	System.out.println();
+        	System.out.println(emp_id);
+        	System.out.println(emp_name);
+        	System.out.println(emp_gender);
+        	System.out.println(emp_salary);
+        	System.out.println(emp_date);
+
+    	}
+    	st.close();
+    	con.close();
+    } 	
+
+}

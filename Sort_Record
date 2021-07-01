@@ -1,0 +1,49 @@
+import java.sql.*;
+
+interface Sort
+{
+	public abstract void sort();
+}
+public class SortRecord 
+{
+
+	public static void main(String[] args) 
+	{
+		addrbook.sort();
+	}
+	
+	static Sort addrbook = () -> {
+		String url = "jdbc:mysql://localhost:3306/address_book";
+    	String uname = "root";
+    	String pass = "";
+    	
+    		try
+    		{
+    			Class.forName("com.mysql.cj.jdbc.Driver");
+    			Connection con = DriverManager.getConnection(url,uname,pass);
+    	    	String query = "select fname,lname from addrbook order by fname,lname asc;";
+    	    	Statement st = con.createStatement();
+
+    			ResultSet rs = st.executeQuery(query);
+
+    			while(rs.next())
+    			{
+		    		String fname = rs.getString(1);
+		    		String lname = rs.getString(2);
+		    		
+		    		System.out.println();
+		    		System.out.println(fname +"\t" +lname);
+		    		System.out.println();
+    			}
+	        	rs.close();
+	        	con.close();
+
+    		}
+    		catch(Exception e)
+    		{
+    			e.setStackTrace(null);
+    		}
+    		    		 
+	};
+
+}

@@ -1,18 +1,20 @@
 import java.sql.*;
 
-interface Sort
+interface sort
 {
 	public abstract void sort();
 }
-public class SortRecord 
+
+
+public class Sort_Zip_State 
 {
 
 	public static void main(String[] args) 
 	{
-		addrbook.sort();
+		zipState.sort();
 	}
 	
-	static Sort addrbook = () -> {
+	static sort zipState = () -> {
 		String url = "jdbc:mysql://localhost:3306/address_book";
     	String uname = "root";
     	String pass = "";
@@ -21,7 +23,7 @@ public class SortRecord
     		{
     			Class.forName("com.mysql.cj.jdbc.Driver");
     			Connection con = DriverManager.getConnection(url,uname,pass);
-    	    	String query = "select fname,lname from addrbook order by fname,lname asc;";
+    	    	String query = "select zip,state from addrbook order by zip,state asc;";
     	    	Statement st = con.createStatement();
 
     			ResultSet rs = st.executeQuery(query);

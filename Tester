@@ -1,0 +1,18 @@
+import static org.junit.Assert.*;
+
+import java.sql.SQLException;
+
+import org.junit.Test;
+
+public class DeleteRecordTest {
+
+	@Test
+	public void test() throws ClassNotFoundException, SQLException 
+	{
+		DeleteRecord obj = new DeleteRecord();
+		
+		int result = obj.deleteRecord();
+		assertEquals(1,result);
+	}
+
+}

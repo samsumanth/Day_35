@@ -1,0 +1,62 @@
+import java.sql.*;
+import java.util.Scanner;
+
+public class AddPerson_Details 
+{
+	public static Scanner sc = new Scanner(System.in);
+	public static String fname,lname,addr,state,email;
+	public static double phone;
+	public static int zip;
+	public static void main(String[] args) throws ClassNotFoundException, SQLException 
+	{
+		insertData();
+		insertData();
+		insertData();
+		insertData();
+	}
+	
+	public static int insertData() throws ClassNotFoundException, SQLException
+	{
+	 	String url = "jdbc:mysql://localhost:3306/address_book";
+    	String uname = "root";
+    	String pass = "";
+    	
+    	Class.forName("com.mysql.cj.jdbc.Driver");
+    	Connection con = DriverManager.getConnection(url,uname,pass);
+     	
+    	String query = "insert into addrbook values(?,?,?,?,?,?,?);";
+    	PreparedStatement ps = con.prepareStatement(query);
+    	
+    	ps = con.prepareStatement(query);
+    	add_Details();
+    	ps.setString(1, fname);
+    	ps.setString(2, lname);
+    	ps.setString(3, addr);
+    	ps.setString(4, state);
+    	ps.setInt(5, zip);
+    	ps.setDouble(6, phone);
+    	ps.setString(7, email);
+    	
+    	int result = ps.executeUpdate();
+    	return result;
+    	
+   	}
+	
+	public static void add_Details()
+	{
+		System.out.println("Enter first name of person");
+    	fname = sc.next();
+    	System.out.println("Enter last name of person");
+    	lname = sc.next();
+    	System.out.println("Enter address of person");
+    	addr = sc.next();
+    	System.out.println("Enter state of person");
+    	state = sc.next();
+    	System.out.println("Enter zip code of person");
+    	zip = sc.nextInt();
+    	System.out.println("Enter phone number of person");
+    	phone = sc.nextDouble();
+    	System.out.println("Enter email ID of person:");
+    	email = sc.next();
+	}
+}

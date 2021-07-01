@@ -1,0 +1,78 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+interface Insert
+{
+	public abstract int insertRecord();
+}
+
+public class InsertNewRecord 
+{
+	public static Scanner sc = new Scanner(System.in);
+	public static String fname,lname,addr,state,email;
+	public static double phone;
+	public static int zip;
+
+	public static void main(String[] args) 
+	{
+		myLamda.insertRecord();
+	}
+	
+	public static Insert myLamda = () -> {
+	 	String url = "jdbc:mysql://localhost:3306/address_book";
+    	String uname = "root";
+    	String pass = "";
+    	int result = 0;
+    	try 
+    	{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection(url,uname,pass);
+	     	
+	    	String query = "insert into addrbook values(?,?,?,?,?,?,?);";
+	    	PreparedStatement ps = con.prepareStatement(query);
+	    	
+	    	ps = con.prepareStatement(query);
+	    	add_Details();
+	    	ps.setString(1, fname);
+	    	ps.setString(2, lname);
+	    	ps.setString(3, addr);
+	    	ps.setString(4, state);
+	    	ps.setInt(5, zip);
+	    	ps.setDouble(6, phone);
+	    	ps.setString(7, email);
+	    	
+	    	result = ps.executeUpdate();
+
+		}
+    	catch (ClassNotFoundException | SQLException e) 
+    	{
+		
+			e.printStackTrace();
+		}
+    	System.out.println("Number of affected rows:" + result);
+		return result;
+
+	};
+	
+	public static void add_Details()
+	{
+		System.out.println("Enter first name of person");
+    	fname = sc.next();
+    	System.out.println("Enter last name of person");
+    	lname = sc.next();
+    	System.out.println("Enter address of person");
+    	addr = sc.next();
+    	System.out.println("Enter state of person");
+    	state = sc.next();
+    	System.out.println("Enter zip code of person");
+    	zip = sc.nextInt();
+    	System.out.println("Enter phone number of person");
+    	phone = sc.nextDouble();
+    	System.out.println("Enter email ID of person:");
+    	email = sc.next();
+	}
+
+}

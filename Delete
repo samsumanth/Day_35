@@ -1,0 +1,33 @@
+import java.sql.*;
+
+public class DeleteRecord 
+{
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException 
+	{
+		deleteRecord();
+	}
+
+	public static int deleteRecord() throws ClassNotFoundException, SQLException
+	{
+		String url = "jdbc:mysql://localhost:3306/address_book";
+    	String uname = "root";
+    	String pass = "";
+    	
+    	Class.forName("com.mysql.cj.jdbc.Driver");
+    	Connection con = DriverManager.getConnection(url,uname,pass);     	
+    	String query = "delete from addrbook where fname='prakash'";
+    	PreparedStatement ps = con.prepareStatement(query);
+    	
+    	ps = con.prepareStatement(query);
+    	
+    	int result = ps.executeUpdate();
+    	
+    	System.out.println("Number of affected rows:" + result);
+    	ps.close();
+    	con.close();
+    	
+    	return result;
+
+	}
+}

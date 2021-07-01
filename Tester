@@ -1,0 +1,19 @@
+import static org.junit.Assert.*;
+
+import java.sql.SQLException;
+
+import org.junit.Test;
+
+public class Edit_RecordTest {
+
+	@Test
+	public void checkJDBCStoreDataTest() throws ClassNotFoundException, SQLException 
+	{
+		Edit_Record obj = new Edit_Record();
+		
+		int result = obj.editRecord();
+		
+		assertEquals(1,result);
+	}
+
+}

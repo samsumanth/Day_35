@@ -1,0 +1,73 @@
+import java.sql.*;
+import java.io.*;
+import java.nio.*;
+
+interface myfile
+{
+	public abstract void Save();
+}
+public class LoadinFile 
+{
+
+	public static String fname,lname,addr,state,email,phn_no;
+	public static int zip;
+	
+	public static void main(String[] args) 
+	{
+		lamda.Save();
+	}
+
+	public static myfile lamda = () -> {
+		
+		String url = "jdbc:mysql://localhost:3306/address_book";
+    	String uname = "root";
+    	String pass = "";
+    	
+    	try
+    	{
+   			Class.forName("com.mysql.cj.jdbc.Driver");
+   			Connection con = DriverManager.getConnection(url,uname,pass);
+   	    	String query = "select *from addrbook;";
+        	Statement st = con.createStatement();
+        	ResultSet rs = st.executeQuery(query);
+
+    		while(rs.next())
+    		{
+	    		fname = rs.getString(1);
+	    		lname = rs.getString(2);
+		   		addr = rs.getString(3);
+		   		state = rs.getString(4);
+		   		zip = rs.getInt(5);
+		   		phn_no = rs.getString(6);
+		   		email = rs.getString(7);
+		   			
+    		}
+    		
+    		File myfile = new File("D:\\data\\file2.txt");
+    		FileWriter file = new FileWriter(myfile);
+    		BufferedReader fileread = new BufferedReader(new FileReader(myfile));
+    		file.write(fname);
+    		file.write(lname);
+    		file.write(addr);
+    		file.write(state);
+    		file.write(zip);
+    		file.write(phn_no);
+    		file.write(email);
+    		
+    		String str ;
+    		
+    		while((str = fileread.readLine()) != null)
+    		{
+    			System.out.println(str);
+    		}
+        	rs.close();
+	       	con.close();
+
+   		}
+    	catch(Exception e)
+    	{
+    		e.setStackTrace(null);
+    	}
+    		    		 
+	};
+}

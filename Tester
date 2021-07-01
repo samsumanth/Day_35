@@ -1,0 +1,16 @@
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class InsertNewRecordTest {
+
+	@Test
+	public void insertRecordtest() 
+	{
+		InsertNewRecord obj = new InsertNewRecord();
+		
+		int result = obj.myLamda.insertRecord();
+		assertEquals(1,result);
+	}
+
+}
